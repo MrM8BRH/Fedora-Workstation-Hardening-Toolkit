@@ -85,7 +85,7 @@ sudo dnf install -y \
   yara hashcat medusa \
   clamav clamav-update \
   openscap-scanner scap-security-guide \
-  audit policycoreutils-python-utils setools-console \
+  audit aide policycoreutils-python-utils setools-console \
   fail2ban
 ```
 
