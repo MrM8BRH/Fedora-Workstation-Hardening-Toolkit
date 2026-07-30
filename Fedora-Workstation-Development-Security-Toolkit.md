@@ -125,12 +125,6 @@ fc-cache -fv
 
 ## 10. Development toolchain
 
-Install Fedora's development tool group:
-
-```bash
-sudo dnf group install -y "Development Tools"
-```
-
 Install the explicitly requested language runtimes and build tools:
 
 ```bash
@@ -138,8 +132,6 @@ sudo dnf install -y \
   gcc cmake clang \
   cargo nodejs
 ```
-
-> The `Development Tools` group may already include some compilers or build utilities. Explicit package names are retained because group membership can vary and the original list requested them directly.
 
 ## 11. System maintenance, desktop utilities, remote access, and services
 
@@ -157,9 +149,6 @@ sudo dnf install -y \
 Enable only the services required for the target system:
 
 ```bash
-# Automatic package-update timer
-sudo systemctl enable --now dnf-automatic.timer
-
 # Cockpit web administration interface
 sudo systemctl enable --now cockpit.socket
 
@@ -168,20 +157,6 @@ sudo systemctl enable --now fail2ban
 
 # Caddy web server
 sudo systemctl enable --now caddy
-```
-## 12. Tuned Profiles
-
-```bash
-sudo systemctl enable --now tuned
-
-# Balanced profile
-sudo tuned-adm profile balanced
-
-# Performance profile
-sudo tuned-adm profile throughput-performance
-
-# Power saving
-sudo tuned-adm profile powersave
 ```
 
 ## 13. Suggested post-install checks
@@ -195,7 +170,4 @@ sudo freshclam
 
 # Detect hardware-monitoring sensors interactively.
 sudo sensors-detect
-
-# Display enabled Cockpit, Fail2ban, Caddy, and update-timer states.
-systemctl is-enabled cockpit.socket fail2ban caddy dnf-automatic.timer 2>/dev/null
 ```
