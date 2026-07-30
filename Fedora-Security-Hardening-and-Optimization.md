@@ -326,8 +326,6 @@ EOF
 sudo sysctl --system
 ```
 
-> Tune the VM/memory and network-buffer values above to match actual RAM size and workload before applying — the defaults shown are sized for a 24 GB RAM / zram / NVMe workstation.
-
 ## 12. Kernel boot parameter hardening
 
 Save the following as `kernel-boot-hardening.sh`. This only covers boot-time kernel parameters (via `grubby`); all `sysctl` settings live in the single persistent file from Section 11 above.
@@ -397,12 +395,18 @@ echo off | sudo tee /sys/devices/system/cpu/smt/control
 
 ## 14. Automatic security updates
 
-Fedora uses `dnf`, not `yum.conf`; enable the `dnf-automatic` service rather than editing `/etc/yum.conf` (that file's `update_commands`/`update_messages` options are specific to the legacy `yum-cron` tool on RHEL/CentOS and have no effect on Fedora's `dnf`).
-
 ```bash
-sudo dnf install -y dnf-automatic
-sudo sed -i 's/^apply_updates.*/apply_updates = yes/' /etc/dnf/automatic.conf
-sudo systemctl enable --now dnf-automatic.timer
+sudo install -d -m 0755 /etc/dnf
+
+sudo tee /etc/dnf/automatic.conf >/dev/null <<'EOF'
+[commands]
+apply_updates = yes
+upgrade_type = default
+reboot = never
+EOF
+```
+```bash
+sudo systemctl enable --now dnf5-automatic.timer
 ```
 
 ## 15. SELinux enforcing mode
