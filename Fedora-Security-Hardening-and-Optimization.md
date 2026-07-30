@@ -111,7 +111,11 @@ sudo systemctl disable \
   sssd.service \
   livesys.service \
   livesys-late.service \
-  abrt-vmcore.service
+  abrt-vmcore.service \
+  nftables
+```
+```
+sudo systemctl mask --now rpcbind.service
 ```
 
 ### Disable Avahi and CUPS immediately
