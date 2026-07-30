@@ -269,11 +269,13 @@ sudo tee /etc/sysctl.d/99-workstation-hardening.conf <<'EOF'
 # =============================================================================
 
 # --- Kernel information-leak and exploitation hardening ---
-kernel.kptr_restrict = 2
+kernel.kptr_restrict = 1
+kernel.dmesg_restrict = 1
 kernel.yama.ptrace_scope = 1
 kernel.kexec_load_disabled = 1
 
 # --- Filesystem protections ---
+fs.suid_dumpable = 0
 fs.protected_fifos = 2
 fs.protected_regular = 2
 # Raise max open files system-wide (useful for high-fd-count workloads).
