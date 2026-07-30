@@ -164,35 +164,35 @@ echo "Authorized uses only. All activity may be monitored and reported." | sudo 
 # USB mass-storage driver.
 # WARNING: this disables ALL USB flash drives, USB external hard disks, and
 # USB card readers that expose a block device. Keyboards/mice (HID) are unaffected.
-echo "install usb-storage /bin/true" | sudo tee /etc/modprobe.d/usb_storage.conf
+echo "install usb-storage /bin/false" | sudo tee /etc/modprobe.d/usb_storage.conf
 sudo rmmod usb-storage 2>/dev/null || true
 
 # Legacy Veritas filesystem — rarely used, low functional risk.
-echo "install freevxfs /bin/true" | sudo tee /etc/modprobe.d/freevxfs.conf
+echo "install freevxfs /bin/false" | sudo tee /etc/modprobe.d/freevxfs.conf
 sudo rmmod freevxfs 2>/dev/null || true
 
 # JFFS2 (flash filesystem, embedded devices) — rarely used on a workstation.
-echo "install jffs2 /bin/true" | sudo tee /etc/modprobe.d/jffs2.conf
+echo "install jffs2 /bin/false" | sudo tee /etc/modprobe.d/jffs2.conf
 sudo rmmod jffs2 2>/dev/null || true
 
 # Apple HFS — WARNING: disabling this prevents mounting classic Mac HFS-formatted media.
-echo "install hfs /bin/true" | sudo tee /etc/modprobe.d/hfs.conf
+echo "install hfs /bin/false" | sudo tee /etc/modprobe.d/hfs.conf
 sudo rmmod hfs 2>/dev/null || true
 
 # Apple HFS+ — WARNING: disabling this prevents mounting modern Mac-formatted
 # external drives and Time Machine disks.
-echo "install hfsplus /bin/true" | sudo tee /etc/modprobe.d/hfsplus.conf
+echo "install hfsplus /bin/false" | sudo tee /etc/modprobe.d/hfsplus.conf
 sudo rmmod hfsplus 2>/dev/null || true
 
 # SquashFS — WARNING: this is used by live/installer ISOs, Snap packages, and
 # some AppImage/Flatpak runtime layers. Disabling it can break Snap (if installed)
 # and mounting of squashfs-based images.
-echo "install squashfs /bin/true" | sudo tee /etc/modprobe.d/squashfs.conf
+echo "install squashfs /bin/false" | sudo tee /etc/modprobe.d/squashfs.conf
 sudo rmmod squashfs 2>/dev/null || true
 
 # UDF — WARNING: this prevents reading UDF-formatted optical media (most
 # burned/pressed DVDs) and some USB sticks formatted as UDF.
-echo "install udf /bin/true" | sudo tee /etc/modprobe.d/udf.conf
+echo "install udf /bin/false" | sudo tee /etc/modprobe.d/udf.conf
 sudo rmmod udf 2>/dev/null || true
 ```
 
