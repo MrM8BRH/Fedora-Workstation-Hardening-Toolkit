@@ -272,6 +272,7 @@ sudo tee /etc/sysctl.d/99-workstation-hardening.conf <<'EOF'
 kernel.kptr_restrict = 1
 kernel.dmesg_restrict = 1
 kernel.yama.ptrace_scope = 1
+kernel.randomize_va_space = 2
 kernel.kexec_load_disabled = 1
 
 # --- Filesystem protections ---
@@ -302,6 +303,9 @@ net.ipv4.icmp_ignore_bogus_error_responses = 1
 net.ipv4.conf.all.log_martians = 1
 # Enable SYN cookies to mitigate SYN flood attacks.
 net.ipv4.tcp_syncookies = 1
+# IPv6
+net.ipv6.conf.all.forwarding = 0
+net.ipv6.conf.default.forwarding = 0
 
 # --- Network privacy tuning ---
 # Disable TCP timestamps to reduce information leakage (uptime fingerprinting).
