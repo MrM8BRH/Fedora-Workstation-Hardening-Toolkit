@@ -2,6 +2,27 @@
 
 > **Operational warning:** Review each section before applying it. Several commands are hardware-, workload-, or environment-specific and may disable services or features required by virtualization, storage, identity management, printing, discovery, wireless networking, or enterprise authentication.
 
+```bash
+### The operational recommendation is CIS Workstation L1 plus a tailored set of selected Level 2 controls, rather than applying Level 2 wholesale.
+# Run the Fedora Workstation Level 1 assessment
+sudo oscap xccdf eval \
+  --profile cis_workstation_l1 \
+  --results-arf fedora44-cis-workstation-l1-arf.xml \
+  --report fedora44-cis-workstation-l1-report.html \
+  /usr/share/xml/scap/ssg/content/ssg-fedora-ds.xml
+
+# Run the Fedora Workstation Level 2 assessment
+sudo oscap xccdf eval \
+  --profile cis_workstation_l2 \
+  --results-arf fedora44-cis-workstation-l2-arf.xml \
+  --report fedora44-cis-workstation-l2-report.html \
+  /usr/share/xml/scap/ssg/content/ssg-fedora-ds.xml
+
+# Open the report
+xdg-open fedora44-cis-workstation-l1-report.html
+xdg-open fedora44-cis-workstation-l2-report.html
+```
+
 ## 1. Recommended security checklist
 
 - [ ] Keep SELinux enabled (enforcing)
