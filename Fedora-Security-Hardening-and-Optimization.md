@@ -319,8 +319,6 @@ vm.vfs_cache_pressure = 100
 # RAM-relative writeback thresholds
 vm.dirty_background_ratio = 10
 vm.dirty_ratio = 20
-vm.dirty_background_bytes = 0
-vm.dirty_bytes = 0
 # Raise virtual memory map limits (useful for large applications, e.g. Elasticsearch).
 vm.max_map_count = 1048576
 EOF
