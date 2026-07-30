@@ -274,7 +274,7 @@ Save the following as `kernel-tuning-hardening.sh`.
 
 set -euo pipefail
 
-echo "== 1/4 Kernel boot parameters (grubby - BLS safe, no grub.cfg surgery needed) =="
+echo "== 1/3 Kernel boot parameters (grubby - BLS safe, no grub.cfg surgery needed) =="
 
 grubby --update-kernel=ALL --args="intel_iommu=on iommu=pt page_alloc.shuffle=1"
 
@@ -307,7 +307,7 @@ grubby --update-kernel=ALL --args="intel_iommu=on iommu=pt page_alloc.shuffle=1"
 #
 # grubby --update-kernel=ALL --args="init_on_free=1 nowatchdog"
 
-echo "== 2/4 Sysctl security hardening =="
+echo "== 2/3 Sysctl security hardening =="
 
 cat > /etc/sysctl.d/99-security-hardening.conf <<'EOF'
 # Kernel information-leak and exploitation hardening
@@ -333,7 +333,7 @@ net.ipv6.conf.all.accept_source_route = 0
 net.ipv4.icmp_ignore_bogus_error_responses = 1
 EOF
 
-echo "== 3/4 Performance tuning for zram + NVMe + 24 GB RAM =="
+echo "== 3/3 Performance tuning for zram + NVMe + 24 GB RAM =="
 
 cat > /etc/sysctl.d/98-perf-tuning.conf <<'EOF'
 # Use zram more aggressively than the default swappiness setting.
@@ -351,19 +351,6 @@ vm.dirty_background_bytes = 134217728
 EOF
 
 sysctl --system
-
-echo "== 4/4 Power management daemon =="
-
-# Use power-profiles-daemon with GNOME/Fedora Workstation instead of TLP.
-dnf install -y power-profiles-daemon
-systemctl enable --now power-profiles-daemon
-
-echo
-echo "Done. Reboot for the kernel boot-parameter changes to take effect."
-echo "Verify after reboot with:"
-echo "  cat /proc/cmdline"
-echo "  sysctl kernel.kptr_restrict kernel.yama.ptrace_scope vm.swappiness"
-echo "  powerprofilesctl list"
 ```
 
 Run the script:
@@ -515,16 +502,7 @@ Scan the Downloads directory recursively and display only infected files:
 clamscan -r -i ~/Downloads
 ```
 
-## 21. Additional auditing tools (AIDE, audit)
-
-```bash
-sudo dnf install -y apparmor-utils apparmor aide aide-common audit-libs audit
-```
-
-- `aide`/`aide-common`: file-integrity monitoring baseline; run `aide --init` and schedule `aide --check` after installation.
-- `audit`/`audit-libs`: kernel audit subsystem (`auditd`) for syscall-level logging.
-
-## 22. Disable the Wi-Fi Direct P2P pseudo-device
+## 21. Disable the Wi-Fi Direct P2P pseudo-device
 
 ### Scope
 
@@ -561,7 +539,7 @@ The `mt7921e` driver may intermittently fail while initializing the P2P device d
 
 The NetworkManager configuration suppresses management of the P2P pseudo-device but does not fix the underlying driver or firmware behavior. Leaving it unmanaged is appropriate when Wi-Fi Direct or P2P-based screen casting is not required.
 
-## 23. Disable all radios (optional, high impact)
+## 22. Disable all radios (optional, high impact)
 
 ```bash
 nmcli radio all off
