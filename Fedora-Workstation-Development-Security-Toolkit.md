@@ -159,7 +159,7 @@ sudo systemctl enable --now fail2ban
 sudo systemctl enable --now caddy
 ```
 
-## 13. Suggested post-install checks
+## 12. Suggested post-install checks
 
 ```bash
 # Confirm that the package database is consistent.
